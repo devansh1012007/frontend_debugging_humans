@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 
 // --- Configuration ---
-const API_BASE = 'https://milk-bicycle-creating-exercise.trycloudflare.com'; // Change this to your backend URL http://0.0.0.0:8000
+const API_BASE = 'https://fifteen-offset-genesis-rio.trycloudflare.com/'; // Change this to your backend URL http://0.0.0.0:8000
 
 // --- Auth Context ---
 const AuthContext = createContext(null);
@@ -773,6 +773,7 @@ const App = () => {
 };
 
 export default App;
+
 
 
 
