@@ -292,20 +292,28 @@ const ChatInterface = () => {
   }, [fetchSessions]);
 
   // Load messages for a specific session
-  // Note: Backend sends all histories. We must filter client side or backend should support filter
   const loadChatHistory = async (sessionId) => {
     setLoading(true);
     try {
-      // In a real app, you'd prefer /ChatData/?chat_id=X. 
-      // Based on your code, ChatViewSet returns all user chat objects.
       const allHistories = await api.request('/ChatData/');
       const history = allHistories.find(h => h.chat === sessionId);
       
-      if (history && history.content) {
-        setMessages(history.content);
+      // FIX STARTS HERE
+      if (history && history.content) { // 1. Check for 'content', not 'messages'
+        // 2. Map backend 'message' key to frontend 'content' key
+        const formattedMessages = history.content.map(msg => ({
+          role: msg.role,
+          // Backend uses 'message', Frontend UI expects 'content'
+          // We use a fallback OR just in case legacy data has 'content'
+          content: msg.message || msg.content || '' 
+        }));
+        
+        setMessages(formattedMessages);
       } else {
         setMessages([]);
       }
+      // FIX ENDS HERE
+
       setActiveSessionId(sessionId);
     } catch (error) {
       console.error("Failed to load history", error);
@@ -313,7 +321,6 @@ const ChatInterface = () => {
       setLoading(false);
     }
   };
-
   const handleCreateChat = async (e) => {
     e.preventDefault();
     if (!newChatTitle) return;
@@ -766,6 +773,7 @@ const App = () => {
 };
 
 export default App;
+
 
 
 
