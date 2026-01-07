@@ -275,7 +275,7 @@ const ChatInterface = () => {
   
   // New Chat Form State
   const [newChatTitle, setNewChatTitle] = useState('');
-  const [newChatMode, setNewChatMode] = useState('therapy');
+  const [newChatMode, setNewChatMode] = useState('specialist');
 
   // Load chat sessions (Titles)
   const fetchSessions = useCallback(async () => {
@@ -369,7 +369,7 @@ const ChatInterface = () => {
         body: JSON.stringify({
           ChatID: activeSessionId,
           prompt: userMsg.content,
-          mode: activeSession?.AiMode || 'therapy'
+          mode: activeSession?.AiMode || 'specialist'
         })
       });
 
@@ -491,7 +491,7 @@ const ChatInterface = () => {
                   onChange={e => setNewChatMode(e.target.value)}
                   className="w-full border border-gray-300 rounded-md px-3 py-2"
                 >
-                  <option value="therapy">Therapy</option>
+                  <option value="specialist">specialist</option>
                   <option value="counselor">Counselor</option>
                 </select>
               </div>
@@ -631,7 +631,7 @@ const Dashboard = ({ onChangeView }) => {
             <MessageSquare size={24} />
           </div>
           <h3 className="text-xl font-bold text-gray-900 mb-2">AI Chat</h3>
-          <p className="text-gray-500 mb-4">Start a therapy session or talk to a counselor.</p>
+          <p className="text-gray-500 mb-4">Start a specialist session or talk to a counselor.</p>
           <div className="flex items-center text-indigo-600 font-medium">
             Open Chat <ChevronRight size={16} className="ml-1" />
           </div>
@@ -709,7 +709,7 @@ const App = () => {
       {/* Sidebar Navigation */}
       <aside className={`fixed inset-y-0 left-0 z-30 w-64 bg-white border-r border-gray-200 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200">
-          <span className="text-2xl font-bold text-indigo-600">TherapyAI</span>
+          <span className="text-2xl font-bold text-indigo-600">specialistAI</span>
           <button onClick={() => setSidebarOpen(false)} className="lg:hidden">
             <X size={24} />
           </button>
@@ -773,6 +773,7 @@ const App = () => {
 };
 
 export default App;
+
 
 
 
